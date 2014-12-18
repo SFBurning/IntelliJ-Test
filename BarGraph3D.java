@@ -1,8 +1,7 @@
 import processing.core.*;
 import de.looksgood.ani.*;
-/**
- * Created by SFBurning on 12/16/14.
- */
+
+
 public class BarGraph3D {
 
     // Data
