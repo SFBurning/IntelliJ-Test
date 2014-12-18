@@ -1,8 +1,8 @@
-import processing.core.*;
-import gluegen.*;
-import jogl.*;
-import de.looksgood.ani.*;
 import peasy.*;
+import processing.core.*;
+import processing.opengl.*;
+
+
 public class P1 extends PApplet {
 
 
@@ -10,31 +10,33 @@ public class P1 extends PApplet {
     PeasyCam cam;
 
     public void setup() {
+        de.looksgood.ani.Ani.init(this);
         size(600,600, OPENGL);
-        cam = new PeasyCam(this, 100);
+        frameRate(60);
+        cam = new PeasyCam(this, 10);
         graph1 = new BarGraph3D(this, color(25, 240, 30), 60f);
-        Ani.init(this);
 
     }
 
     public void draw() {
-        background(5);
-        rotateX(-.5f);
-        rotateY(-.5f);
-        background(0);
-        fill(255,0,0);
-        box(30);
-        pushMatrix();
-        translate(0,0,20);
-        fill(0,0,255);
-        box(5);
-        popMatrix();
+        background(50);
+
         graph1.display();
 
     }
 
-    public void mouseReleased() {
-
+    public void mousePressed() {
+        graph1.setValue(random(100));
     }
+
+    public void mouseReleased() {
+        graph1.animate();
+    }
+
+    public void keyPressed(){
+        graph1.setValue(random(1000));
+        graph1.animate();
+    }
+
 
 }

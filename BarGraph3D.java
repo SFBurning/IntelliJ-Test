@@ -51,18 +51,19 @@ public class BarGraph3D {
 
     public void display() {
         p.rectMode(PConstants.CORNERS);
+        p.noStroke();
         p.pushMatrix();
             p.pushMatrix();
             {
                 p.fill(palette[0]);
-                p.translate(0, 0, 50);
+                p.translate(0, 0, 25);
                 p.rect(-25f,0f, 25f, displayValue);
             }
             p.popMatrix();
             p.pushMatrix();
             {
                 p.fill(palette[1]);
-                p.translate(0,0,-50);
+                p.translate(0,0,-25);
                 p.rect(-25f,0f, 25f, displayValue);
 
             }
@@ -70,8 +71,8 @@ public class BarGraph3D {
             p.pushMatrix();
             {
                 p.fill(palette[2]);
-                p.rotate(p.radians(90));
-                p.translate(0,0,-50);
+                p.rotateY(p.radians(90));
+                p.translate(0,0,-25);
                 p.rect(-25f,0f, 25f, displayValue);
 
             }
@@ -79,21 +80,26 @@ public class BarGraph3D {
             p.pushMatrix();
             {
                 p.fill(palette[3]);
-                p.rotate(p.radians(90));
-                p.translate(0,0,-50);
+                p.rotateY(p.radians(90));
+                p.translate(0,0,25);
                 p.rect(-25f,0f, 25f, displayValue);
             }
         p.popMatrix();
         p.popMatrix();
+        System.out.println(displayValue);
     }
 
-    private void setValue(float v) {
+    public void setValue(float v) {
         this.value = v;
     }
 
     // The data value
     public float getValue() {
         return value;
+    }
+
+    public void animate(){
+        Ani.to(this, 5, "displayValue", value);
     }
 
     // The displayed value-- might be different from data to smooth animation
