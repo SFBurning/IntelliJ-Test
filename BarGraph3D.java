@@ -1,5 +1,5 @@
 import processing.core.*;
-
+import de.looksgood.ani.*;
 /**
  * Created by SFBurning on 12/16/14.
  */
@@ -12,6 +12,8 @@ public class BarGraph3D {
     private float value;
     private float displayValue;
     // Constructor
+    Ani valueAni;
+
     BarGraph3D(PApplet p, int c) {
 
         this.p = p;
@@ -28,6 +30,10 @@ public class BarGraph3D {
         // dummy value, will be overridden immediately in other constructor
         value = 50;
 
+        // An ani for displayvalue
+        valueAni = new Ani(p, 1, "displayValue", value, AniConstants.CIRC_IN);
+        valueAni.setPlayMode(AniConstants.YOYO);
+        valueAni.repeat(3);
     }
 
     BarGraph3D(PApplet p, int c, float value) {
@@ -40,7 +46,45 @@ public class BarGraph3D {
     // Global draw method
     public void display(float v){
         setValue(v);
+        display();
+    }
 
+    public void display() {
+        p.rectMode(PConstants.CORNERS);
+        p.pushMatrix();
+            p.pushMatrix();
+            {
+                p.fill(palette[0]);
+                p.translate(0, 0, 50);
+                p.rect(-25f,0f, 25f, displayValue);
+            }
+            p.popMatrix();
+            p.pushMatrix();
+            {
+                p.fill(palette[1]);
+                p.translate(0,0,-50);
+                p.rect(-25f,0f, 25f, displayValue);
+
+            }
+            p.popMatrix();
+            p.pushMatrix();
+            {
+                p.fill(palette[2]);
+                p.rotate(p.radians(90));
+                p.translate(0,0,-50);
+                p.rect(-25f,0f, 25f, displayValue);
+
+            }
+            p.popMatrix();
+            p.pushMatrix();
+            {
+                p.fill(palette[3]);
+                p.rotate(p.radians(90));
+                p.translate(0,0,-50);
+                p.rect(-25f,0f, 25f, displayValue);
+            }
+        p.popMatrix();
+        p.popMatrix();
     }
 
     private void setValue(float v) {
